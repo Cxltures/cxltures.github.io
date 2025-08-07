@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="pageTitle">Darvk</title> <!-- Set an ID for the title -->
+    <link rel="shortcut icon" type="image/png" href="https://logodownload.org/wp-content/uploads/2020/04/google-classroom-logo-2.png" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent scroll bars on the main page */
+        }
+
+        #iframe {
+            width: 100%;
+            height: 100vh; /* Full height of the viewport */
+            border: none; /* No border */
+            overflow: hidden; /* Prevent scroll bars on the iframe */
+        }
+
+        #optionsContainer {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #351b6054;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: none; /* Initially hidden */
+        }
+
+        #toggleButton {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            background-color: #351b6054;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none; /* Initially hidden */
+        }
+    </style>
+</head>
+
+<body>
+    <button id="toggleButton">Open title changer</button>
+    <div id="optionsContainer">
+        <label for="tabTitleSelect">Select Tab Title:</label>
+        <select id="tabTitleSelect">
+            <option value="Classroom">Classroom</option>
+            <option value="1st Period Science">1st Period Science</option>
+            <option value="2nd Period Science">2nd Period Science</option>
+            <option value="4th Period Science">4th Period Science</option>
+            <option value="6th Period Science">6th Period Science</option>
+            <option value="1ST PERIOD">1ST PERIOD</option>
+            <option value="2ND PERIOD">2ND PERIOD</option>
+            <option value="4TH PERIOD">4TH PERIOD</option>
+            <option value="6TH PERIOD">6TH PERIOD</option>
+            <option value="Social Studies - 1st Period">Social Studies - 1st Period</option>
+            <option value="Social Studies - 2nd Period">Social Studies - 2nd Period</option>
+            <option value="Social Studies - 4th Period">Social Studies - 4th Period</option>
+            <option value="Social Studies - 6th Period">Social Studies - 6th Period</option>
+            <option value="FIRST PERIOD-8C">FIRST PERIOD-8C</option>
+            <option value="SECOND PERIOD-8C">SECOND PERIOD-8C</option>
+            <option value="FOURTH PERIOD-8C">FOURTH PERIOD-8C</option>
+            <option value="SIXTH PERIOD-8C">SIXTH PERIOD-8C</option>
+        </select>
+        <button id="changeTitleButton">Change Title</button>
+    </div>
+    <iframe id="iframe" src="https://cxltures.github.io/DarvkV4.html" scrolling="no"></iframe>
+
+    <script>
+        // Function to hide all options
+        function hideOptions() {
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.style.display = 'none'; // Hide options
+        }
+
+        // Show the toggle button when the "O" key is pressed
+        window.addEventListener('keydown', function (event) {
+            if (event.key.toLowerCase() === 'o') {
+                event.preventDefault(); // Prevent default action
+                const toggleButton = document.getElementById('toggleButton');
+ // Toggle button visibility
+                if (toggleButton.style.display === 'none' || toggleButton.style.display === '') {
+                    toggleButton.style.display = 'block'; // Show the button
+                } else {
+                    hideOptions(); // Hide options if already visible
+                }
+            }
+        });
+
+        // Toggle the visibility of the options container when the button is clicked
+        document.getElementById('toggleButton').addEventListener('click', function () {
+            const optionsContainer = document.getElementById('optionsContainer');
+            if (optionsContainer.style.display === 'none' || optionsContainer.style.display === '') {
+                optionsContainer.style.display = 'block'; // Show options
+                this.textContent = 'Hide title changer'; // Change button text
+            } else {
+                hideOptions(); // Hide options
+                this.textContent = 'Open title changer'; // Change button text back
+            }
+        });
+
+        // Change the tab title based on user selection and store it in localStorage
+        document.getElementById('changeTitleButton').addEventListener('click', function () {
+            const selectedTitle = document.getElementById('tabTitleSelect').value;
+            document.title = selectedTitle; // Change the tab title
+            localStorage.setItem('tabTitle', selectedTitle); // Store the title in localStorage
+        });
+
+        // Retrieve the stored title from localStorage when the page loads
+        window.addEventListener('load', function () {
+            const storedTitle = localStorage.getItem('tabTitle');
+            if (storedTitle) {
+                document.title = storedTitle; // Set the tab title to the stored value
+                document.getElementById('tabTitleSelect').value = storedTitle; // Set the select value to the stored title
+            }
+        });
+
+        // Show options when clicking on the iframe
+        document.getElementById('iframe').addEventListener('click', function () {
+            const toggleButton = document.getElementById('toggleButton');
+            toggleButton.style.display = 'block'; // Show the toggle button when iframe is clicked
+        });
+    </script>
+</body>
+</html>
